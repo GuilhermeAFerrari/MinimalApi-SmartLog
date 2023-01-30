@@ -33,7 +33,7 @@ namespace MinimalApiSmartLog.Migrations
                     b.Property<bool>("Active")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValueSql("true");
+                        .HasDefaultValueSql("1");
 
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()

@@ -2,7 +2,7 @@
 
 ### Application
 
-The goal is manage all logs at the same single page
+The goal is manage all logs with API
 
 ## 🛠 Technologies and Frameworks
 - [.NET 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
@@ -11,7 +11,7 @@ The goal is manage all logs at the same single page
 ## Running the application
 ```bash
 # Clone this repository or download .zip and extract the files
-$ git clone <https://github.com/GuilhermeAFerrari/SmartLog.git>
+$ git clone <https://github.com/GuilhermeAFerrari/MinimalApi-SmartLog.git>
 
 # Access the project's folder and open the solution file with Visual Studio or Visual Studio Code
 

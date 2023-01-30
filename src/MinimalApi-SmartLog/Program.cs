@@ -5,6 +5,9 @@ using NetDevPack.Identity.Jwt;
 using MinimalApi_SmartLog.Models;
 using Microsoft.AspNetCore.Authorization;
 using MiniValidation;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using NetDevPack.Identity.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,11 +54,11 @@ builder.Services.AddDbContext<MinimalContextDb>(options =>
 
 builder.Services.AddIdentityEntityFrameworkContextConfiguration(options =>
     options.UseSqlServer(builder.Configuration["DefaultConnection"],
-    b => b.MigrationsAssembly("MinimalApi-CustomerRecords")));
+    b => b.MigrationsAssembly("MinimalApi-SmartLog")));
 
 builder.Services.AddIdentityConfiguration();
 builder.Services.AddJwtConfiguration(builder.Configuration, "Jwt");
-
+builder.Services.AddAuthorization();
 var app = builder.Build();
 
 #endregion
@@ -81,6 +84,83 @@ app.Run();
 
 void MapActions(WebApplication app)
 {
+    app.MapPost("/register", [AllowAnonymous] async (
+        UserManager<IdentityUser> userManager,
+        IOptions<AppJwtSettings> appJwtSettings,
+        RegisterUser registerUser) =>
+        {
+            if (registerUser == null)
+                return Results.BadRequest("User is required");
+
+            if (!MiniValidator.TryValidate(registerUser, out var errors))
+                return Results.ValidationProblem(errors);
+
+            var user = new IdentityUser
+            {
+                UserName = registerUser.Email,
+                Email = registerUser.Email,
+                EmailConfirmed = true
+            };
+
+            var result = await userManager.CreateAsync(user, registerUser.Password);
+
+            if (!result.Succeeded)
+                return Results.BadRequest(result.Errors);
+
+            var jwt = new JwtBuilder()
+                .WithUserManager(userManager)
+                .WithJwtSettings(appJwtSettings.Value)
+                .WithEmail(user.Email)
+                .WithJwtClaims()
+                .WithUserClaims()
+                .WithUserRoles()
+                .BuildUserResponse();
+
+            return Results.Ok(jwt);
+        })
+        .ProducesValidationProblem()
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status400BadRequest)
+        .WithName("UserRegister")
+        .WithTags("User");
+
+    app.MapPost("/login", [AllowAnonymous] async (
+        SignInManager<IdentityUser> signInManager,
+        UserManager<IdentityUser> userManager,
+        IOptions<AppJwtSettings> appJwtSettings,
+        LoginUser loginUser) =>
+        {
+            if (loginUser == null)
+                return Results.BadRequest("User is required");
+
+            if (!MiniValidator.TryValidate(loginUser, out var errors))
+                return Results.ValidationProblem(errors);
+
+            var result = await signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, true);
+
+            if (result.IsLockedOut)
+                return Results.BadRequest("Blocked user");
+
+            if (!result.Succeeded)
+                return Results.BadRequest("Invalid user or password");
+
+            var jwt = new JwtBuilder()
+                .WithUserManager(userManager)
+                .WithJwtSettings(appJwtSettings.Value)
+                .WithEmail(loginUser.Email)
+                .WithJwtClaims()
+                .WithUserClaims()
+                .WithUserRoles()
+                .BuildUserResponse();
+
+            return Results.Ok(jwt);
+        })
+        .ProducesValidationProblem()
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status400BadRequest)
+        .WithName("UserLogin")
+        .WithTags("User");
+
     app.MapGet("/logs", [Authorize] async (
         MinimalContextDb context) =>
 

@@ -174,7 +174,7 @@ void MapActions(WebApplication app)
         Guid id,
         MinimalContextDb context) =>
 
-        await context.Logs.FindAsync(id)
+        await context.Logs.FirstOrDefaultAsync(item => item.IdSecondary == id)
             is Log log
                 ? Results.Ok(log)
                 : Results.NotFound())
@@ -184,7 +184,8 @@ void MapActions(WebApplication app)
         .WithTags("Logs");
 
     app.MapPost("/log", [Authorize] async (
-        Log log, MinimalContextDb context) =>
+        Log log,
+        MinimalContextDb context) =>
         {
             if (!MiniValidator.TryValidate(log, out var errors))
                 return Results.ValidationProblem(errors);
@@ -193,7 +194,7 @@ void MapActions(WebApplication app)
             var result = await context.SaveChangesAsync();
 
             return result > 0
-                ? Results.CreatedAtRoute("GetCustomerById", new { id = log.Id }, log)
+                ? Results.CreatedAtRoute("GetLogById", new { id = log.Id }, log)
                 : Results.BadRequest("An error ocurred while saving the record");
         })
         .ProducesValidationProblem()

@@ -4,6 +4,8 @@
 
 The goal is manage all logs with API
 
+![SmartLog Swagger](./SmartLogSwagger.png)
+
 ## 🛠 Technologies and Frameworks
 - [.NET 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 - [EntityFrameworkCore](https://www.entityframeworktutorial.net/efcore/entity-framework-core.aspx)

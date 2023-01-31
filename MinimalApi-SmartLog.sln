@@ -3,29 +3,34 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinimalApi-SmartLog", "src\MinimalApi-SmartLog\MinimalApi-SmartLog.csproj", "{5B8DDA37-8B2B-405C-9AA2-8E9AB3547B2D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A6D45C1B-3ED4-47BA-8A90-C40CFBD73974}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinimalApi-SmartLog.Tests", "tests\MinimalApi-SmartLog.Tests\MinimalApi-SmartLog.Tests.csproj", "{ADB04995-69C4-464E-842C-5148BA6F1A05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalApi-SmartLog", "src\MinimalApi-SmartLog\MinimalApi-SmartLog.csproj", "{7BAEC434-051E-4A76-A2E0-5E8D49CC1306}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BFD939A1-391E-44F8-B8EC-C1BE3535B397}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalApi-SmartLog.IntegrationTests", "tests\MinimalApi-SmartLog.IntegrationTests\MinimalApi-SmartLog.IntegrationTests.csproj", "{B99F8593-1EAA-4F89-9E04-B4498A2C2828}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5B8DDA37-8B2B-405C-9AA2-8E9AB3547B2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B8DDA37-8B2B-405C-9AA2-8E9AB3547B2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B8DDA37-8B2B-405C-9AA2-8E9AB3547B2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B8DDA37-8B2B-405C-9AA2-8E9AB3547B2D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ADB04995-69C4-464E-842C-5148BA6F1A05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADB04995-69C4-464E-842C-5148BA6F1A05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADB04995-69C4-464E-842C-5148BA6F1A05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADB04995-69C4-464E-842C-5148BA6F1A05}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FB85A2ED-342A-4DB1-9A3B-C412B69CA34E}
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BAEC434-051E-4A76-A2E0-5E8D49CC1306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BAEC434-051E-4A76-A2E0-5E8D49CC1306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BAEC434-051E-4A76-A2E0-5E8D49CC1306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BAEC434-051E-4A76-A2E0-5E8D49CC1306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B99F8593-1EAA-4F89-9E04-B4498A2C2828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B99F8593-1EAA-4F89-9E04-B4498A2C2828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B99F8593-1EAA-4F89-9E04-B4498A2C2828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B99F8593-1EAA-4F89-9E04-B4498A2C2828}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7BAEC434-051E-4A76-A2E0-5E8D49CC1306} = {A6D45C1B-3ED4-47BA-8A90-C40CFBD73974}
+		{B99F8593-1EAA-4F89-9E04-B4498A2C2828} = {BFD939A1-391E-44F8-B8EC-C1BE3535B397}
 	EndGlobalSection
 EndGlobal
